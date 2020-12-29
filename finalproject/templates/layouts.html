@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body style="width: 100%;">
+    <nav class="navbar navbar-expand-sm bg-light">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('dish.contribute') }}">
+                    <img class="icon" src="/static/images/add.svg"/>
+                    Contribute</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('index') }}">
+                    <img class="icon" src="/static/images/dish.svg"/>
+                    Dishes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('dish.ingre') }}">
+                    <img class="icon" src="/static/images/leaf.svg"/>
+                    Ingredients</a>
+            </li>
+            {% if g.user %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('dish.savelist') }}">
+                    <img class="icon" src="/static/images/save.svg"/>
+                    Saved Dishes</a>
+            </li>
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav rightnav">
+            {% if not g.user %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link username">{{ g.user.username }}</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <div class="searchbar">
+            <form method="GET" action="{{ url_for('dish.search') }}">
+                <div class="input-group mb-3">
+                    <input style="width: 300px;" type="text" class="form-control" name="search_string" placeholder="Search for some delicious dishes">
+                    <div class="input-group-append">
+                      <button value="search" class="input-group-text">
+                        <img class="icon search" src="/static/images/search.svg"/>
+                      </button>
+                    </div>
+                    
+                  </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="type" value="dish">Dish's name
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="type" value="ingredient">Dish with this ingredient
+                    </label>
+                </div>
+                <div class="dropdown">
+                    <label for="filter">Sort by</label>
+                    <select id="filter" name="filter">
+                        <option value="upvote">Most upvoted</option>
+                        <option value="time">Newest</option>
+                    </select>
+                </div>
+                
+            </form>
+        </div>
+        <hr> 
+        <h1>{{ page }}</h1> 
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for e in messages %}
+                    <h4 class="error">{{ e }}</h4>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <!-- ------------- -->
+        {% block body %}
+        {% endblock %}
+        <!-- ------------- -->
+        {% block script %}
+        {% endblock %}
+    </div>
+    
+</body>
+</html>

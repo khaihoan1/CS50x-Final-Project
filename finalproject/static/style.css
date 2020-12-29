@@ -1,0 +1,65 @@
+body {
+    background-color: rgb(210, 226, 241);
+}
+
+.username {
+    color: black !important;
+    /* font-size: 1.2em; */
+    font-weight: bolder;
+}
+.rightnav {
+    margin-left: auto;
+}
+.icon {
+    height: 1.1rem;
+}
+.searchbar {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    padding-top: 15px;
+}
+.dropdown {
+    padding-top: 10px;
+}
+.upvote_index{
+   float: right;
+}   
+.owner {
+    font-size: 0.8rem;
+    font-weight: bold;
+    font-style: italic;
+}
+}
+.error {
+    background-color: rgb(199, 81, 81);
+    text-align: center;
+    width: 60%;
+    margin: auto;
+}
+.skip_number{
+    display: none;
+}
+
+/* -------------- Every dish  ------------ */
+.dish {
+    /* border: 1px solid gray; */
+    margin: 15px auto;
+    padding: 10px;
+    background-color: rgb(224, 233, 233);
+    width: 75%;
+}
+.dish a{
+    text-decoration: none;
+    color: black;
+}
+
+.header {
+    text-align: center;
+}
+.upvote {
+    /* cursor: pointer; */
+    height: 1.0rem;
+    color: olivedrab;
+    margin-bottom: 3px;
+}

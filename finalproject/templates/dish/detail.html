@@ -1,0 +1,48 @@
+{% extends "layouts.html" %}
+
+{% block body %}
+<div style="margin-bottom: 30px;">
+    <h2>{{dish['dish_name']}}</h2>
+    <p>by <span style="font-style: italic; font-weight: bold;">{{dish.contributor.username}}</span>
+        <span style="float: right; margin-right: 35px;">
+            {% if g.user %}
+            {% if g.user not in dish.who_save %}
+                <a href="{{ url_for('dish.save', dish_id=dish.id) }}">
+                    <button type="button" class="btn btn-primary">Save this recipe</button>
+                </a>
+            {% else %}
+                <a href="{{ url_for('dish.unsave', dish_id=dish.id) }}">
+                    <button type="button" class="btn btn-danger">Unsave</button>
+                </a>
+            {% endif %}
+            {% else %}
+                <a href="{{ url_for('dish.save', dish_id=dish.id) }}">
+                        <button type="button" class="btn btn-primary">Save this recipe</button>
+                </a>           
+            {% endif %}
+        </span>
+    </p>
+    <div>
+        <h4>Ingredients</h4>
+        <ul>
+        {% for i in dish['ingredients'] %}
+            <li>{{i}}</li>
+        {% endfor %}
+        </ul>
+        <h4>Procedure</h4>
+        <p>{{ dish.procedure }}</p>
+    </div>
+    <div>
+        <span>
+            <a href="{{ url_for('dish.upvote', dish_id=dish.id ) }}">
+                {% if g.user in dish.upvoters %}
+                    <img class="upvote" src="/static/images/up-red.svg" />
+                {% else %}
+                    <img class="upvote" src="/static/images/up-green.svg" />
+                {% endif %}
+            </a>
+            Upvote: {{ dish.upvote_count }}
+        </span>
+    </div>
+</div>
+{% endblock %}

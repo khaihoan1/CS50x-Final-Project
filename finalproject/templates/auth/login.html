@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <title>Login</title>
+</head>
+<body>
+    <div class="container-fluid" style="padding-top: 50px;">
+        <div style="width: 40%; margin: auto; background-color:  rgb(124, 182, 236); padding: 10px 20px;">
+            <h2>Login</h2>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for e in messages %}
+                        <h4 class="error">{{ e }}</h4>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="{{ url_for('auth.login') }}" method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password">
+            </div>
+            <div class="form-group form-check">
+                <!-- <span>
+                    <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                </span> -->
+                <span> &nbsp;</span>
+                <span style="float: right;"><a href="{{ url_for('auth.register') }}">Register new account?</a></span>
+                </label>
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{% extends "layouts.html" %} -->
+
+{% block body %}
+    <div id="body_container">
+    {% for d in dishes %}
+        <div class="dish">
+            <a href="{{ url_for('dish.detail', dish_id=d.id) }}" >
+            <div class="header">
+                <h4>{{d}}</h4>
+            </div>
+            <div class="body">
+                by <span class="owner">{{d.contributor.username}}</span>
+                <span class="upvote_index">Upvote: <span style="color: blue;">{{d.upvote_count}}</span></span>
+            </div>
+            <div>Ingredients:
+                {% for i in d.ingredients %}
+                    <span>{{ i }}, {{ i.index }}</span>
+                {% endfor %}
+            </div>  
+            </a>
+        </div>
+    {% endfor %}
+    <span id="skip_number" skip_number="5"></span>
+
+    {% if count == 5 %}
+        <button id="loadmore"class="btn btn-info">Loadmore</button>
+    {% endif %}
+    </div>
+    
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        document.querySelector('#loadmore').addEventListener('click', () => {
+            skip_number = document.querySelector('#skip_number').getAttribute('skip_number');
+            console.log(skip_number);
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('GET', `/loadmore/${skip_number}`);
+            xhttp.send();
+            xhttp.onload = ()=> {
+                console.log(typeof(xhttp.response));
+                if (xhttp.response !== "No more dish."){
+                    document.querySelector('#skip_number').insertAdjacentHTML('beforeBegin', xhttp.response);
+                    document.querySelector('#skip_number').setAttribute('skip_number', parseInt(skip_number) + 5);
+                } else {
+                    alert(xhttp.response);
+                }
+            }
+        })
+    </script>   
+{% endblock %}
