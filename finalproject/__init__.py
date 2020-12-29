@@ -17,7 +17,6 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     # Prepare for SQLAlchemy
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:asdasd123@localhost:5432/dishes'
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mtaqstpo:Y95mXf-K84v0HKFlutsmZtxt9uDGlhyu@hansken.db.elephantsql.com:5432/mtaqstpo'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config.update(
     TESTING=True,
